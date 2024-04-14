@@ -19,7 +19,7 @@ jobs:
 
     - name: Build and Generate HEX
       run: |
-        platformio run --target buildfs --target uploadfs --environment genericSTM32F103C8
+        platformio run --target build --environment genericSTM32F103C8
 
     - name: Upload HEX Artifact
       uses: actions/upload-artifact@v2
