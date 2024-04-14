@@ -21,6 +21,9 @@ jobs:
       run: |
         platformio run --environment genericSTM32F103C8
 
+    - name: List files after build
+      run: ls .pio/build/genericSTM32F103C8/
+
     - name: Upload BIN Artifact
       uses: actions/upload-artifact@v2
       with:
