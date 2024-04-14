@@ -17,12 +17,12 @@ jobs:
       run: |
         pip install platformio
 
-    - name: Build and Generate HEX
+    - name: Build and Generate BIN
       run: |
         platformio run --environment genericSTM32F103C8
 
-    - name: Upload HEX Artifact
+    - name: Upload BIN Artifact
       uses: actions/upload-artifact@v2
       with:
-        name: firmware.hex
-        path: .pio/build/genericSTM32F103C8/firmware.hex
+        name: firmware.bin
+        path: .pio/build/genericSTM32F103C8/firmware.bin
