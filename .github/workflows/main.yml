@@ -21,14 +21,8 @@ jobs:
       run: |
         platformio run --environment genericSTM32F103C8
 
-    - name: List files after build
-      run: ls -la .pio/build/genericSTM32F103C8/
-
-    - name: Display firmware.hex content
-      run: xxd .pio/build/genericSTM32F103C8/*.hex || cat .pio/build/genericSTM32F103C8/*.bin
-
-    - name: Upload HEX/BIN Artifact
+    - name: Upload HEX Artifact
       uses: actions/upload-artifact@v2
       with:
         name: firmware.hex
-        path: .pio/build/genericSTM32F103C8/*.hex
+        path: .pio/build/genericSTM32F103C8/firmware.hex
