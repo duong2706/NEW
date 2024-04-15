@@ -22,7 +22,7 @@ jobs:
         platformio run --environment genericSTM32F103C8
 
     - name: List files after build
-      run: ls .pio/build/genericSTM32F103C8/
+      run: ls -la .pio/build/genericSTM32F103C8/
 
     - name: Display firmware.hex content
       run: xxd .pio/build/genericSTM32F103C8/firmware.hex
