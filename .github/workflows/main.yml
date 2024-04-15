@@ -3,7 +3,7 @@ name: Build and Deploy
 on:
   push:
     branches:
-      - main  # Thay đổi tên nhánh nếu bạn sử dụng nhánh khác
+      - main
 
 jobs:
   build:
@@ -25,7 +25,7 @@ jobs:
       run: ls .pio/build/genericSTM32F103C8/
 
     - name: Display firmware.bin content
-      run: cat .pio/build/genericSTM32F103C8/firmware.bin
+      run: xxd .pio/build/genericSTM32F103C8/firmware.bin
 
     - name: Upload BIN Artifact
       uses: actions/upload-artifact@v2
