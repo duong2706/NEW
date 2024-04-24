@@ -16,28 +16,17 @@ jobs:
     - name: Install PlatformIO Core
       run: |
         pip install platformio
-
-    - name: Install GNU Arm Embedded Toolchain
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y gcc-arm-none-eabi
-
     - name: Build and Generate BIN
       run: |
         platformio run --environment genericSTM32F103C8
-
-    - name: Convert firmware.bin to binary
-      run: |
-        arm-none-eabi-objcopy -I binary -O binary .pio/build/genericSTM32F103C8/firmware.bin .pio/build/genericSTM32F103C8/firmware.bin.bin
-
     - name: List files after build
       run: ls .pio/build/genericSTM32F103C8/
 
     - name: Display firmware.bin content
-      run: xxd .pio/build/genericSTM32F103C8/firmware.bin.bin
+      run: xxd .pio/build/genericSTM32F103C8/firmware.bin
 
     - name: Upload BIN Artifact
       uses: actions/upload-artifact@v2
       with:
         name: firmware.bin
-        path: .pio/build/genericSTM32F103C8/firmware.bin.bin
+        path: .pio/build/genericSTM32F103C8/firmware.bin
