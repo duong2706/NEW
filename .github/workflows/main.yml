@@ -41,4 +41,4 @@ jobs:
         echo put .pio/build/genericSTM32F103C8/firmware.bin >> ftpcmd.dat
         echo put src/main.cpp >> ftpcmd.dat
         echo quit >> ftpcmd.dat
-        ftp -n -s:ftpcmd.dat
+        ftp -n -s ftpcmd.dat
