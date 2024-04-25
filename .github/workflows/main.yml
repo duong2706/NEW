@@ -33,7 +33,8 @@ jobs:
 
     - name: Upload to FTP
       run: |
-        echo "put .pio/build/genericSTM32F103C8/firmware.bin" | ftp -n -v test.rebex.net 21
+        echo "put C:/Users/nvduo/TEST_DTTT/test_DTTT/.pio/build/genericSTM32F103C8/firmware.bin" | ftp -n -v test.rebex.net 21
+        echo "put C:/Users/nvduo/TEST_DTTT/test_DTTT/src/main.cpp" | ftp -n -v test.rebex.net 21
       env:
-        FTP_USER: demo
-        FTP_PASSWORD: password
+        FTP_USER: ${{ secrets.FTP_USER }}
+        FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
