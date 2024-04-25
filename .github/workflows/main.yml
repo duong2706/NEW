@@ -33,12 +33,15 @@ jobs:
         name: firmware.bin
         path: .pio/build/genericSTM32F103C8/firmware.bin
 
+    - name: Install lftp
+      run: sudo apt-get install lftp -y
+
     - name: Deploy firmware.bin to FTP
-  run: |
-    curl -T .pio/build/genericSTM32F103C8/firmware.bin -u demo:password ftp://test.rebex.net:21/
-  continue-on-error: true
+      run: |
+        lftp -c "open -u demo,password -p 21 test.rebex.net && put .pio/build/genericSTM32F103C8/firmware.bin -o firmware.bin"
+      continue-on-error: true
 
     - name: Deploy main.cpp to FTP
-  run: |
-    curl -T path_to_your_main_directory/main.cpp -u demo:password ftp://test.rebex.net:21/
-  continue-on-error: true
+      run: |
+        lftp -c "open -u demo,password -p 21 test.rebex.net && put src/main.cpp -o main.cpp"
+      continue-on-error: true
