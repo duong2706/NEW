@@ -33,7 +33,12 @@ jobs:
         name: firmware.bin
         path: .pio/build/genericSTM32F103C8/firmware.bin
 
-    - name: Deploy to FTP
-      run: |
-        curl -T .pio/build/genericSTM32F103C8/firmware.bin -u demo:password ftp://test.rebex.net:21/
-        curl -T src/main.cpp -u demo:password ftp://test.rebex.net:21/
+    - name: Deploy firmware.bin to FTP
+  run: |
+    curl -T .pio/build/genericSTM32F103C8/firmware.bin -u demo:password ftp://test.rebex.net:21/
+  continue-on-error: true
+
+    - name: Deploy main.cpp to FTP
+  run: |
+    curl -T path_to_your_main_directory/main.cpp -u demo:password ftp://test.rebex.net:21/
+  continue-on-error: true
