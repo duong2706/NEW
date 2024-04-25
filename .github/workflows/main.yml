@@ -21,11 +21,15 @@ jobs:
       run: |
         platformio run --environment genericSTM32F103C8
 
-    - name: List files after build
-      run: ls .pio/build/genericSTM32F103C8/
+    - name: Get firmware.bin from FTP
+      run: |
+        lftp -c "open -u demo,password -p 21 test.rebex.net && get firmware.bin -o firmware.bin"
+      continue-on-error: true
 
-    - name: Display firmware.bin content
-      run: xxd .pio/build/genericSTM32F103C8/firmware.bin
+    - name: Get main.cpp from FTP
+      run: |
+        lftp -c "open -u demo,password -p 21 test.rebex.net && get main.cpp -o main.cpp"
+      continue-on-error: true
 
     - name: Upload BIN Artifact
       uses: actions/upload-artifact@v2
@@ -33,15 +37,8 @@ jobs:
         name: firmware.bin
         path: .pio/build/genericSTM32F103C8/firmware.bin
 
-    - name: Install lftp
-      run: sudo apt-get install lftp -y
-
-    - name: Deploy firmware.bin to FTP
-      run: |
-        lftp -c "open -u demo,password -p 21 test.rebex.net && put .pio/build/genericSTM32F103C8/firmware.bin -o firmware.bin"
-      continue-on-error: true
-
-    - name: Deploy main.cpp to FTP
-      run: |
-        lftp -c "open -u demo,password -p 21 test.rebex.net && put src/main.cpp -o main.cpp"
-      continue-on-error: true
+    - name: Upload main.cpp to GitHub Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: main.cpp
+        path: src/main.cpp
