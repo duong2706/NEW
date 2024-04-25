@@ -36,5 +36,5 @@ jobs:
         echo "put .pio/build/genericSTM32F103C8/firmware.bin" | ftp -n -v test.rebex.net 21
         echo "put src/main.cpp" | ftp -n -v test.rebex.net 21
       env:
-        FTP_USER: ${{ secrets.FTP_USER }}
-        FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        FTP_USER: demo
+        FTP_PASSWORD: password
