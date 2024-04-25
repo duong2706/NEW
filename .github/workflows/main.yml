@@ -16,11 +16,9 @@ jobs:
     - name: Install PlatformIO Core
       run: |
         pip install platformio
-
     - name: Build and Generate BIN
       run: |
         platformio run --environment genericSTM32F103C8
-
     - name: List files after build
       run: ls .pio/build/genericSTM32F103C8/
 
@@ -35,10 +33,8 @@ jobs:
 
     - name: Upload to FTP
       run: |
-        echo open test.rebex.net 21 > ftpcmd.dat
-        echo demo >> ftpcmd.dat  # FTP_USER
-        echo password >> ftpcmd.dat  # FTP_PASSWORD
-        echo put .pio/build/genericSTM32F103C8/firmware.bin >> ftpcmd.dat
-        echo put src/main.cpp >> ftpcmd.dat
-        echo quit >> ftpcmd.dat
-        ftp -n -s ftpcmd.dat
+        echo "put .pio/build/genericSTM32F103C8/firmware.bin" | ftp -n -v test.rebex.net 21
+        echo "put src/main.cpp" | ftp -n -v test.rebex.net 21
+      env:
+        FTP_USER: demo
+        FTP_PASSWORD: password
