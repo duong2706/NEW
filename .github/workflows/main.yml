@@ -21,21 +21,22 @@ jobs:
       run: |
         platformio run --environment genericSTM32F103C8
 
-    - name: Install lftp
+    - name: List files after build
+      run: ls .pio/build/genericSTM32F103C8/
+
+    - name: Display firmware.bin content
+      run: xxd .pio/build/genericSTM32F103C8/firmware.bin
+
+    - name: Upload BIN Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: firmware.bin
+        path: .pio/build/genericSTM32F103C8/firmware.bin
+
+    - name: Upload to FTP
       run: |
-        sudo apt-get update
-        sudo apt-get install lftp -y
-
-    - name: Create ftp_files directory
-      run: mkdir ftp_files
-
-    - name: Move firmware.bin to ftp_files
-      run: mv .pio/build/genericSTM32F103C8/firmware.bin ftp_files/
-
-    - name: Move main.cpp to ftp_files
-      run: mv src/main.cpp ftp_files/
-
-    - name: Deploy to FTP
-      run: |
-        lftp -c "open -u demo,password -p 21 test.rebex.net && put ftp_files/firmware.bin -o /pub/firmware.bin"
-        lftp -c "open -u demo,password -p 21 test.rebex.net && put ftp_files/main.cpp -o /pub/main.cpp"
+        echo "put .pio/build/genericSTM32F103C8/firmware.bin" | ftp -n -v 103.97.126.29 21
+        echo "put src/main.cpp" | ftp -n -v 103.97.126.29 21
+      env:
+        FTP_USER: jqgsqvdj
+        FTP_PASSWORD: 27062002
