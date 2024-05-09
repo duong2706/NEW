@@ -33,9 +33,10 @@ jobs:
         name: firmware.bin
         path: .pio/build/genericSTM32F103C8/firmware.bin
 
-    - name: Save BIN to Directory
+    - name: Save BIN and main.cpp to Directory
       run: |
-        cp .pio/build/genericSTM32F103C8/firmware.bin C:\Users\nvduo\TEST_DTTT\test_DTTT\.pio\build\genericSTM32F103C8
+        cp .pio/build/genericSTM32F103C8/firmware.bin /c/Users/nvduo/OneDrive/Desktop/all/
+        cp src/main.cpp /c/Users/nvduo/OneDrive/Desktop/all/
       if: always()
 
     - name: Upload to FTP
