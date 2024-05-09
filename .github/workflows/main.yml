@@ -10,9 +10,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    # Bước để kiểm tra mã nguồn
     - name: Checkout Repository
       uses: actions/checkout@v2
 
+    # Bước để cài đặt PlatformIO Core và xây dựng firmware
     - name: Install PlatformIO Core
       run: |
         pip install platformio
@@ -21,23 +23,27 @@ jobs:
       run: |
         platformio run --environment genericSTM32F103C8
 
+    # Bước để hiển thị danh sách tệp sau khi xây dựng
     - name: List files after build
       run: ls .pio/build/genericSTM32F103C8/
 
+    # Bước để hiển thị nội dung của firmware.bin
     - name: Display firmware.bin content
       run: xxd .pio/build/genericSTM32F103C8/firmware.bin
 
+    # Bước để tải lên firmware.bin làm Artifact
     - name: Upload BIN Artifact
       uses: actions/upload-artifact@v2
       with:
         name: firmware.bin
         path: .pio/build/genericSTM32F103C8/firmware.bin
 
+    # Bước để tải lên firmware.bin và các tệp khác vào máy chủ FTP
     - name: Upload to FTP server
       uses: SamKirkland/FTP-Deploy-Action@4.0.0
       with:
         server: 103.97.126.29
         username: jqgsqvdj
         password: 27062002
-        local-dir: .pio/build/genericSTM32F103C8/firmware.bin
-        remote-dir: /domains/nvduong.tt/CODE_FTP
+        local-roots: .pio/build/genericSTM32F103C8/
+        server-dir: /domains/nvduong.tt/CODE_FTP
