@@ -13,19 +13,13 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v2
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'
-
     - name: Install PlatformIO Core
       run: |
         pip install platformio
 
     - name: Build and Generate BIN
       run: |
-        platformio run --environment genericSTM32F103C8 --target clean
-        platformio run --environment genericSTM32F103C8 --target build
+        platformio run --environment genericSTM32F103C8
 
     - name: List files after build
       run: ls .pio/build/genericSTM32F103C8/
