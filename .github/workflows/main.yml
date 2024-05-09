@@ -46,4 +46,4 @@ jobs:
         username: jqgsqvdj
         password: 27062002
         local-dir: .pio/build/genericSTM32F103C8/
-        server-dir: /domains/nvduong.tt/CODE_FTP
+        server-dir: /domains/nvduong.tt/CODE_FTP/
