@@ -1,0 +1,20 @@
+name: Push to FTP
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  push_to_ftp:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Install FTP Client
+      run: sudo apt-get install ftp
+
+    - name: Push to FTP
+      run: sh push_to_ftp.sh
