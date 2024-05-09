@@ -16,11 +16,9 @@ jobs:
     - name: Install PlatformIO Core
       run: |
         pip install platformio
-
     - name: Build and Generate BIN
       run: |
         platformio run --environment genericSTM32F103C8
-
     - name: List files after build
       run: ls .pio/build/genericSTM32F103C8/
 
@@ -32,15 +30,3 @@ jobs:
       with:
         name: firmware.bin
         path: .pio/build/genericSTM32F103C8/firmware.bin
-
-    - name: Save BIN to Directory
-      run: |
-        cp .pio/build/genericSTM32F103C8/firmware.bin /c/Users/nvduo/OneDrive/Desktop/BIN/
-      if: always()
-
-    - name: Upload to FTP
-      run: |
-        echo "put src/main.cpp /domains/nvduong.tt/CODE_FTP/main.cpp" | ftp -n -v 103.97.126.29 21 -u jqgsqvdj,27062002
-      env:
-        FTP_USER: jqgsqvdj
-        FTP_PASSWORD: 27062002
