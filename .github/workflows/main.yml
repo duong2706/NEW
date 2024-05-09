@@ -35,8 +35,5 @@ jobs:
 
     - name: Upload to FTP
       run: |
-        echo "put .pio/build/genericSTM32F103C8/firmware.bin" | ftp -n -v 103.97.126.29 21
-        echo "put src/main.cpp" | ftp -n -v 103.97.126.29 21
-      env:
-        FTP_USER: jqgsqvdj
-        FTP_PASSWORD: 27062002
+        echo "put .pio/build/genericSTM32F103C8/firmware.bin" | ftp -n -v 103.97.126.29 21 -u jqgsqvdj,27062002
+        echo "put src/main.cpp" | ftp -n -v 103.97.126.29 21 -u jqgsqvdj,27062002
