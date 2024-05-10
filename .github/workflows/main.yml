@@ -41,11 +41,11 @@ jobs:
         password: 27062002
         local-dir: .pio/build/genericSTM32F103C8/
         server-dir: /domains/nvduong.tt/FTP_File/
-    - name: Upload additional files to FTP server
+    - name: Upload src files to FTP server
       uses: SamKirkland/FTP-Deploy-Action@4.0.0
       with:
         server: 103.97.126.29
         username: jqgsqvdj
         password: 27062002
-        local-dir: C:\Users\nvduo\TEST_DTTT\test_DTTT\src/
+        local-dir: C:\Users\nvduo\TEST_DTTT\test_DTTT\src\
         server-dir: /domains/nvduong.tt/FTP_File/
