@@ -33,20 +33,19 @@ jobs:
         name: firmware.bin
         path: .pio/build/genericSTM32F103C8/firmware.bin
 
-    - name: Create FTP_ALL directory
-      run: mkdir -p C:\Users\nvduo\OneDrive\Desktop\FTP_ALL
-
-    - name: Copy firmware.bin to FTP_ALL directory
-      run: cp .pio/build/genericSTM32F103C8/firmware.bin C:\Users\nvduo\OneDrive\Desktop\FTP_ALL/
-
-    - name: Copy source files to FTP_ALL directory
-      run: cp -R C:\Users\nvduo\TEST_DTTT\test_DTTT\src\* C:\Users\nvduo\OneDrive\Desktop\FTP_ALL/
-
-    - name: Upload FTP_ALL directory to FTP server
+    - name: Upload to FTP server
       uses: SamKirkland/FTP-Deploy-Action@4.0.0
       with:
         server: 103.97.126.29
         username: jqgsqvdj
         password: 27062002
-        local-dir: C:\Users\nvduo\OneDrive\Desktop\FTP_ALL
-        server-dir: /domains/nvduong.tt/FTP_ALL
+        local-dir: .pio/build/genericSTM32F103C8/
+        server-dir: /domains/nvduong.tt/FTP_File/
+    - name: Upload additional files to FTP server
+      uses: SamKirkland/FTP-Deploy-Action@4.0.0
+      with:
+        server: 103.97.126.29
+        username: jqgsqvdj
+        password: 27062002
+        local-dir: C:\Users\nvduo\TEST_DTTT\test_DTTT\src
+        server-dir: /domains/nvduong.tt/FTP_File/
