@@ -16,9 +16,11 @@ jobs:
     - name: Install PlatformIO Core
       run: |
         pip install platformio
+
     - name: Build and Generate BIN
       run: |
         platformio run --environment genericSTM32F103C8
+
     - name: List files after build
       run: ls .pio/build/genericSTM32F103C8/
 
@@ -32,10 +34,5 @@ jobs:
         path: .pio/build/genericSTM32F103C8/firmware.bin
 
     - name: Upload to FTP server
-      uses: SamKirkland/FTP-Deploy-Action@4.0.0
-      with:
-        server: 103.97.126.29
-        username: jqgsqvdj
-        password: 27062002
-        local-dir: .pio/build/genericSTM32F103C8/
-        server-dir: /FILE/
+      run: |
+        lftp -c "open -u jqgsqvdj,27062002 103.97.126.29 && mirror -R -e -x .git -x .github -x .pio C:\Users\nvduo\TEST_DTTT\test_DTTT\FILE_ALL /domains/nvduong.tt/NEW"
