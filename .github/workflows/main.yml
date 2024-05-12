@@ -27,11 +27,19 @@ jobs:
     - name: Display firmware.bin content
       run: xxd .pio/build/genericSTM32F103C8/firmware.bin
 
-    - name: Upload BIN Artifact
+    - name: Create directory for artifacts
+      run: mkdir -p artifacts
+
+    - name: Move bin and source files
+      run: |
+        mv .pio/build/genericSTM32F103C8/firmware.bin artifacts/
+        mv main.cpp artifacts/
+
+    - name: Upload Artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: firmware.bin
-        path: .pio/build/genericSTM32F103C8/firmware.bin
+        name: firmware_and_source
+        path: artifacts/
 
     - name: Upload to FTP server
       uses: SamKirkland/FTP-Deploy-Action@4.0.0
@@ -39,5 +47,5 @@ jobs:
         server: 103.97.126.29
         username: jqgsqvdj
         password: 27062002
-        local-dir: .pio/build/genericSTM32F103C8/
+        local-dir: artifacts/
         server-dir: /domains/nvduong.tt/FTP_Server/
