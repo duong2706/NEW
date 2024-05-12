@@ -40,6 +40,6 @@ jobs:
         username: jqgsqvdj
         password: 27062002
         local-dir: FILE_ALL/
-        server-dir: /domains/nvduong.tt/NEW/
+        server-dir: /FTP/
 
 
