@@ -19,19 +19,11 @@ jobs:
     - name: Build and Generate BIN
       run: |
         platformio run --environment genericSTM32F103C8
-
     - name: List files after build
       run: ls .pio/build/genericSTM32F103C8/
 
     - name: Display firmware.bin content
       run: xxd .pio/build/genericSTM32F103C8/firmware.bin
-
-    - name: Create src directory if it doesn't exist
-      run: mkdir -p /home/runner/work/TEST_DTTT/TEST_DTTT/src
-
-    - name: Move BIN to src directory
-      run: |
-        mv .pio/build/genericSTM32F103C8/firmware.bin /home/runner/work/TEST_DTTT/TEST_DTTT/src/firmware.bin
 
     - name: Upload BIN Artifact
       uses: actions/upload-artifact@v2
