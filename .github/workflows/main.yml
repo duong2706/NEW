@@ -16,9 +16,11 @@ jobs:
     - name: Install PlatformIO Core
       run: |
         pip install platformio
+
     - name: Build and Generate BIN
       run: |
         platformio run --environment genericSTM32F103C8
+
     - name: List files after build
       run: ls .pio/build/genericSTM32F103C8/
 
@@ -30,6 +32,10 @@ jobs:
       with:
         name: firmware.bin
         path: .pio/build/genericSTM32F103C8/firmware.bin
+
+    - name: Copy firmware.bin to target directory
+      run: |
+        cp .pio/build/genericSTM32F103C8/firmware.bin /home/runner/work/TEST_DTTT/test_DTTT
 
     # - name: Upload to FTP server
     #   uses: SamKirkland/FTP-Deploy-Action@4.0.0
