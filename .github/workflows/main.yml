@@ -40,6 +40,6 @@ jobs:
         username: jqgsqvdj
         password: 27062002
         local-dir: |
-          .pio/build/genericSTM32F103C8/firmware.bin
-          .pio/src/main.cpp
+          .pio/build/genericSTM32F103C8/firmware.bin/
+          .pio/src/main.cpp/
         server-dir: /FTP/
