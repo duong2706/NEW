@@ -33,11 +33,21 @@ jobs:
         name: firmware.bin
         path: .pio/build/genericSTM32F103C8/firmware.bin
 
-    - name: Upload to FTP server
+    - name: Upload main.cpp to FTP server
       uses: SamKirkland/FTP-Deploy-Action@4.0.0
       with:
         server: 103.97.126.29
         username: jqgsqvdj
         password: 27062002
-        local-dir: .pio/build/FILE_ALL/
+        local-dir: src/
+        server-dir: /domains/nvduong.tt/NEW/
+
+    - name: Upload firmware.bin to FTP server
+      uses: SamKirkland/FTP-Deploy-Action@4.0.0
+      with:
+        server: 103.97.126.29
+        username: jqgsqvdj
+        password: 27062002
+        include: firmware.bin
+        local-dir: .pio/build/genericSTM32F103C8/
         server-dir: /domains/nvduong.tt/NEW/
