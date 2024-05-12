@@ -16,11 +16,9 @@ jobs:
     - name: Install PlatformIO Core
       run: |
         pip install platformio
-
     - name: Build and Generate BIN
       run: |
-        platformio run --environment genericSTM32F103C8 --target firmware
-
+        platformio run --environment genericSTM32F103C8
     - name: List files after build
       run: ls .pio/build/genericSTM32F103C8/
 
@@ -40,4 +38,4 @@ jobs:
         username: jqgsqvdj
         password: 27062002
         local-dir: .pio/build/genericSTM32F103C8/
-        server-dir: /FTP/
+        server-dir:/FTP/
