@@ -30,6 +30,9 @@ jobs:
     - name: Create directory for artifacts
       run: mkdir -p artifacts
 
+    - name: Copy main.cpp to working directory
+      run: cp C:/Users/nvduo/TEST_DTTT/test_DTTT/src/main.cpp .
+
     - name: Move bin and source files
       run: |
         mv .pio/build/genericSTM32F103C8/firmware.bin artifacts/
