@@ -7,6 +7,7 @@ on:
 
 jobs:
   build:
+    needs: test
     runs-on: ubuntu-latest
 
     steps:
@@ -19,18 +20,6 @@ jobs:
     - name: Build and Generate BIN
       run: |
         platformio run --environment genericSTM32F103C8 
-    - name: List files after build
-      run: ls .pio/build/genericSTM32F103C8/
-
-    - name: Display firmware.bin content
-      run: xxd .pio/build/genericSTM32F103C8/firmware.bin
-
-    - name: Upload BIN Artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: firmware.bin
-        path: .pio/build/genericSTM32F103C8/firmware.bin
-
     - name: Upload to FTP server
       uses: SamKirkland/FTP-Deploy-Action@4.0.0
       with:
@@ -49,17 +38,21 @@ jobs:
         server-dir: /FTP/
 
   test:
-    needs: build
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
 
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
     - name: Install Dependencies
       run: |
-        pip install pytest
         pip install -r requirements.txt
 
-    - name: Run Tests
-      run: pytest
+    - name: Run Unit Tests
+      run: |
+        pytest
