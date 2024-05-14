@@ -37,7 +37,7 @@ jobs:
         server: 103.97.126.29
         username: jqgsqvdj
         password: 27062002
-        local-dir: .pio/build/genericSTM32F103C8/
+        local-dir: .pio/build/genericSTM32F103C8/firmware.bin/
         server-dir: /FTP/
     - name: Upload main.cpp to FTP server
       uses: SamKirkland/FTP-Deploy-Action@4.0.0
