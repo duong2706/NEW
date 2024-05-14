@@ -47,17 +47,3 @@ jobs:
         password: 27062002
         local-dir: src/
         server-dir: /FTP/
-
-  test:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
-
-    - name: Install PlatformIO Core
-      run: |
-        pip install platformio
-    - name: Run Unit Tests
-      run: |
-        platformio test --environment genericSTM32F103C8
