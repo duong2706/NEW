@@ -15,12 +15,21 @@ jobs:
 
     - name: Install PlatformIO Core
       run: |
-        python -m pip install --upgrade pip
         pip install platformio
-
-    - name: Build Project
+    - name: Build and Generate BIN
       run: |
-        platformio run
+        platformio run --environment genericSTM32F103C8 
+    # - name: List files after build
+    #   run: ls .pio/build/genericSTM32F103C8/
+
+    # - name: Display firmware.bin content
+    #   run: xxd .pio/build/genericSTM32F103C8/firmware.bin
+
+    # - name: Upload BIN Artifact
+    #   uses: actions/upload-artifact@v2
+    #   with:
+    #     name: firmware.bin
+    #     path: .pio/build/genericSTM32F103C8/firmware.bin
 
     - name: Upload to FTP server
       uses: SamKirkland/FTP-Deploy-Action@4.0.0
@@ -38,5 +47,3 @@ jobs:
         password: 27062002
         local-dir: src/
         server-dir: /FTP/
-
- 
