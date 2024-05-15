@@ -1,0 +1,22 @@
+ name: CI/CD with PlatformIO
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Install PlatformIO Core
+      run: |
+        pip install platformio
+
+    - name: Build and Test
+      run: |
+        platformio test --environment genericSTM32F103C8
