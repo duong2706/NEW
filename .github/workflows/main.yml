@@ -1,4 +1,57 @@
-test:
+name: CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Install PlatformIO Core
+      run: |
+        pip install platformio
+
+    - name: Build and Generate BIN
+      run: |
+        platformio run --environment genericSTM32F103C8 
+
+    - name: List files after build
+      run: ls .pio/build/genericSTM32F103C8/
+
+    - name: Display firmware.bin content
+      run: xxd .pio/build/genericSTM32F103C8/firmware.bin
+
+    - name: Upload BIN Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: firmware.bin
+        path: .pio/build/genericSTM32F103C8/firmware.bin
+
+    - name: Upload to FTP server
+      uses: SamKirkland/FTP-Deploy-Action@4.0.0
+      with:
+        server: 103.97.126.29
+        username: jqgsqvdj
+        password: 27062002
+        local-dir: .pio/build/genericSTM32F103C8/
+        server-dir: /FTP/
+
+    - name: Upload main.cpp to FTP server
+      uses: SamKirkland/FTP-Deploy-Action@4.0.0
+      with:
+        server: 103.97.126.29
+        username: jqgsqvdj
+        password: 27062002
+        local-dir: src/
+        server-dir: /FTP/
+
+  test:
     runs-on: ubuntu-latest
     needs: build
 
@@ -12,14 +65,14 @@ test:
 
     - name: Install Test Dependencies
       run: |
-        platformio lib install <your-testing-library> # Replace <your-testing-library> with the library you use for unit testing
+        platformio lib install <your-testing-library> # Thay <your-testing-library> bằng thư viện kiểm thử mà bạn sử dụng
 
     - name: Run Unit Tests
       run: |
-        platformio test --environment <your-test-environment> # Replace <your-test-environment> with your test environment
+        platformio test --environment <your-test-environment> # Thay <your-test-environment> bằng môi trường kiểm thử của bạn
 
     - name: Upload Test Results
       uses: actions/upload-artifact@v2
       with:
         name: test-results
-        path: .pio/build/<your-test-environment>/test_results/ # Adjust the path as needed
+        path: .pio/build/<your-test-environment>/test_results/ # Điều chỉnh đường dẫn nếu cần
