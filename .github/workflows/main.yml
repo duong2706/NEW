@@ -50,13 +50,25 @@ jobs:
         password: 27062002
         local-dir: src/
         server-dir: /FTP/
+
+  unit-test:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
 
-    - name: Install PlatformIO Core
-      run: |
-        pip install platformio
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
 
-    - name: Build and Test
+    - name: Install dependencies
       run: |
-        platformio test --environment genericSTM32F103C8
+        python -m pip install --upgrade pip
+        pip install pytest
+
+    - name: Run unit tests
+      run: |
+        pytest tests/
