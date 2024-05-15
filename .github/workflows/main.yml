@@ -65,14 +65,14 @@ jobs:
 
     - name: Install Test Dependencies
       run: |
-        platformio lib install <your-testing-library> # Thay <your-testing-library> bằng thư viện kiểm thử mà bạn sử dụng
+        platformio lib install unity
 
     - name: Run Unit Tests
       run: |
-        platformio test --environment <your-test-environment> # Thay <your-test-environment> bằng môi trường kiểm thử của bạn
+        platformio test --environment unity_test
 
     - name: Upload Test Results
       uses: actions/upload-artifact@v2
       with:
         name: test-results
-        path: .pio/build/<your-test-environment>/test_results/ # Điều chỉnh đường dẫn nếu cần
+        path: .pio/build/unity_test/test_results/
