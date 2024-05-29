@@ -24,8 +24,8 @@ jobs:
     - name: List files after build
       run: ls .pio/build/genericSTM32F103C8/
 
-    - name: Display firmware.bin content
-      run: xxd .pio/build/genericSTM32F103C8/firmware.bin
+    # - name: Display firmware.bin content
+    #   run: xxd .pio/build/genericSTM32F103C8/firmware.bin
 
     - name: Upload BIN Artifact
       uses: actions/upload-artifact@v2
